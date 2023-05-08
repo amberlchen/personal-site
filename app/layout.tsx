@@ -79,7 +79,7 @@ export default function RootLayout({
           onExit={onPageExit}
           mountOnEnter={true}
           unmountOnExit={true}>
-          <main className='p-4 mx-auto max-w-4xl my-6 sm:my-0 '>{children}</main>
+          <main className='p-4 mx-auto max-w-4xl my-6 sm:my-0 md:-mt-20'>{children}</main>
         </Transition>
       </TransitionGroup>
         <Footer />
