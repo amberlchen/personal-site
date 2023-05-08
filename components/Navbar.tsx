@@ -6,38 +6,65 @@ import { Gilda_Display , Overpass } from 'next/font/google';
 const cormorant = Gilda_Display({ weight: '400', subsets: ['latin']});
 const overpass = Overpass({ weight: "600", subsets: ['latin']});
 
+const MENU_ITEMS = [{
+    title: 'Home',
+    link: '/'
+},
+{
+    title: 'About',
+    link: '/about'
+},
+{
+    title: 'Gallery',
+    link: '/gallery'
+},
+{
+    title: 'Travel Journal',
+    link: '/travel'
+}];
+
 const CollapsedMenu = () => {
     // TODO: Reset showMenu once screen is resized
     const [showMenu, setShowMenu] = useState(false);
 
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);
+    }
+
     return (
         <>
-        <div className='visible
+        <div className={`
         z-10
-        sm:invisible absolute top-0 right-0 py-2 px-2' onClick={() => setShowMenu(!showMenu)}><svg viewBox="0 0 100 80" width="32" height="32">
+        visible
+        sm:invisible
+        ${showMenu ? 'stroke-white' : 'stroke-black'}
+        absolute top-0 right-0 py-2 px-2`} onClick={toggleMenu}><svg viewBox="0 0 100 80" width="32" height="32">
         <rect width="100" height="4"></rect>
         <rect y="30" width="100" height="4"></rect>
         <rect y="60" width="100" height="4"></rect>
       </svg>
       </div>
-     <div className={`${showMenu ? 'visible h-screen' : 'h-0'}  sm:invisible bg-white delay-75 opacity-${showMenu ? '100' : '0'}  transition-opacity`}>
 
 
-     <nav className={`${cormorant.className} text-sm flex-col items-stretch flex justify-center py-8
+     <div  className={`
+     transition-transform
+     transition-opacity
+     duration-700
+        bg-black
+     sm:invisible
+     ${showMenu ? 'translate-y-0 ' : '-translate-y-96'}
+
+     
+     `}>
+     <nav className={`${cormorant.className} ${showMenu ? 'visible h-screen' : 'invisible h-0'} text-sm text-white flex-col items-stretch flex justify-center py-8
         `}>
-            <Link href="/" className="self-center px-5 py-2">
-                HOME
-            </Link>
-            <Link href="/about" className="self-center px-5 py-2">
-                ABOUT
-            </Link>
-          
-            <Link href="/gallery" className="self-center px-5 py-2">
-                GALLERY 
-            </Link>
-            <Link href="/about" className="self-center px-5 py-2">
-                CONTACT 
-            </Link>
+            {
+                MENU_ITEMS.map(item => 
+                    (<Link href={item.link} key={item.title} onClick={toggleMenu} className="self-center px-5 py-2 uppercase">
+                    {item.title}
+                </Link>)
+                )
+            }
         </nav>
 
      </div>
@@ -53,21 +80,23 @@ export const Navbar = () => {
         hidden
         sm:flex
         `}>
-            <Link href="/" className="self-center px-5 py-2">
-                HOME
-            </Link>
-            <Link href="/about" className="self-center px-5 py-2">
-                ABOUT
-            </Link>
-            <h3 className={`${overpass.className} self-center text-4xl px-5 py-2`}>
+               {
+                MENU_ITEMS.map((item, idx) => 
+                    (idx !== 1 ? <>
+                    <Link href={item.link} key={item.title} className="self-center px-5 py-2 uppercase">
+                    {item.title}
+                </Link>
+                    </> :  <>
+                    <Link href={item.link} key={item.title} className="self-center px-5 py-2 uppercase">
+                    {item.title}
+                </Link>
+                <h3 className={`${overpass.className} self-center text-4xl px-5 py-2`}>
                 AMBER CHEN
             </h3>
-            <Link href="/gallery" className="self-center px-5 py-2">
-                GALLERY 
-            </Link>
-            <Link href="/about" className="self-center px-5 py-2">
-                CONTACT 
-            </Link>
+                </> )
+                )
+            }
+        
         </nav>
 
    <CollapsedMenu />
