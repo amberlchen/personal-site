@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { Gilda_Display, Overpass } from "next/font/google";
 
-const cormorant = Gilda_Display({ weight: "400", subsets: ["latin"] });
+const gildaDisplay = Gilda_Display({ weight: "400", subsets: ["latin"] });
 const overpass = Overpass({ weight: "600", subsets: ["latin"] });
 
 const MENU_ITEMS = [
@@ -20,7 +20,11 @@ const MENU_ITEMS = [
     link: "/gallery",
   },
   {
-    title: "Travel Journal",
+    title: "Pricing",
+    link: "/pricing",
+  },
+  {
+    title: "Journal",
     link: "/travel-journal",
   },
 ];
@@ -69,7 +73,7 @@ const CollapsedMenu = () => {
      `}
       >
         <nav
-          className={`${cormorant.className} ${
+          className={`${gildaDisplay.className} ${
             showMenu ? "visible h-screen" : "invisible h-0"
           } text-sm text-white dark:text-black flex-col items-stretch flex justify-center py-8
         `}
@@ -94,7 +98,7 @@ export const Navbar = () => {
   return (
     <>
       <nav
-        className={`${cormorant.className} text-sm items-stretch flex justify-center py-8
+        className={`${gildaDisplay.className} text-sm items-stretch flex justify-center py-8
         hidden
         sm:flex
         text-black dark:text-white
@@ -121,7 +125,7 @@ export const Navbar = () => {
                 {item.title}
               </Link>
               <h3
-                className={`${overpass.className} self-center text-4xl px-5 py-2`}
+                className={`${gildaDisplay.className} self-center text-4xl px-5 py-2`}
               >
                 AMBER CHEN
               </h3>
