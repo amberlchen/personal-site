@@ -1,57 +1,54 @@
-'use client';
+"use client";
 
-import './globals.css'
+import "./globals.css";
 
-import { Inter } from 'next/font/google'
-import {Navbar} from '../components/Navbar';
-import {Footer} from '../components/Footer';
+import { Inter } from "next/font/google";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 
-import { TransitionGroup, Transition } from 'react-transition-group';
-import gsap from 'gsap';
-import { usePathname } from 'next/navigation';
+import { TransitionGroup, Transition } from "react-transition-group";
+import gsap from "gsap";
+import { usePathname } from "next/navigation";
 
-
-const onPageEnter = (node) => {
+const onPageEnter = (node: any) => {
   gsap.fromTo(
     node,
     {
       x: 50,
       autoAlpha: 0,
-      ease: 'power3',
+      ease: "power3",
       opacity: 1,
     },
     {
       x: 0,
       autoAlpha: 1,
       duration: 1,
-      ease: 'power3',
+      ease: "power3",
       opacity: 0,
     }
-  )
-}
+  );
+};
 
-
-const onPageExit = (node) => {
+const onPageExit = (node: any) => {
   gsap.fromTo(
     node,
     {
       x: 0,
       autoAlpha: 1,
-      ease: 'power3.out',
+      ease: "power3.out",
       opacity: 100,
     },
     {
       x: -50,
       autoAlpha: 0,
       duration: 0.5,
-      ease: 'power3.inOut',
+      ease: "power3.inOut",
       opacity: 0,
-
     }
-  )
-}
+  );
+};
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata = {
 //   title: 'Create Next App',
@@ -61,29 +58,31 @@ const inter = Inter({ subsets: ['latin'] })
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-
   const pathname = usePathname();
 
   return (
     <html lang="en">
       <body className={inter.className}>
-      <Navbar />
+        <Navbar />
         <TransitionGroup>
-        <Transition
-          key={pathname}
-          timeout={500}
-          in={true}
-          onEnter={onPageEnter}
-          onExit={onPageExit}
-          mountOnEnter={true}
-          unmountOnExit={true}>
-          <main className='p-4 mx-auto max-w-4xl my-6 sm:my-0 md:-mt-20'>{children}</main>
-        </Transition>
-      </TransitionGroup>
+          <Transition
+            key={pathname}
+            timeout={500}
+            in={true}
+            onEnter={onPageEnter}
+            onExit={onPageExit}
+            mountOnEnter={true}
+            unmountOnExit={true}
+          >
+            <main className="p-4 mx-auto max-w-4xl my-6 sm:my-0 md:-mt-20">
+              {children}
+            </main>
+          </Transition>
+        </TransitionGroup>
         <Footer />
-     </body>
+      </body>
     </html>
-  )
+  );
 }
