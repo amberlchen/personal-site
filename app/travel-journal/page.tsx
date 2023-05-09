@@ -1,35 +1,11 @@
-import { Gilda_Display, Overpass } from "next/font/google";
+import {
+  JournalEntry,
+  TRAVEL_JOURNAL_ENTRIES,
+} from "@/constants/travelJournalEntries";
+import { Gilda_Display } from "next/font/google";
 import Link from "next/link";
 
-const cormorant = Gilda_Display({ weight: "400", subsets: ["latin"] });
-
-interface JournalEntry {
-  title: string;
-  date: string;
-  href: string;
-  key: string;
-}
-
-const journalEntries: JournalEntry[] = [
-  {
-    key: "sri_lanka",
-    title: "Sri Lanka",
-    date: "February 2023",
-    href: "blog-cover-photo/sri-lanka.jpg",
-  },
-  {
-    key: "taiwan",
-    title: "Taiwan",
-    date: "December 2022",
-    href: "blog-cover-photo/nyc.jpg",
-  },
-  {
-    key: "bali",
-    title: "Bali",
-    date: "2022",
-    href: "blog-cover-photo/bali.jpg",
-  },
-];
+const gildaDisplay = Gilda_Display({ weight: "400", subsets: ["latin"] });
 
 const TravelJournalEntry = ({ entry }: { entry: JournalEntry }) => {
   return (
@@ -39,12 +15,14 @@ const TravelJournalEntry = ({ entry }: { entry: JournalEntry }) => {
         href={`/travel-journal/${entry.key}`}
       >
         <div
-          className={`${cormorant.className} object-cover text-center absolute inset-0 text-white
+          className={`${gildaDisplay.className} object-cover text-center absolute inset-0 text-white
                     hover:opacity-100
                     opacity-0
                     duration-300 transition-opacity
                     flex justify-center items-center 
                     z-10
+                    invisible
+                    md:visible
                 `}
         >
           <div
@@ -79,8 +57,20 @@ const TravelJournalEntry = ({ entry }: { entry: JournalEntry }) => {
 const TravelJournalGrid = () => {
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3  gap-4 container">
-      {journalEntries.map((entry) => (
-        <TravelJournalEntry entry={entry} />
+      {TRAVEL_JOURNAL_ENTRIES.map((entry) => (
+        <div key={entry.key}>
+          <TravelJournalEntry entry={entry} />
+          <div
+            className={`${gildaDisplay.className}
+      object-cover
+            text-center
+            md:invisible
+      `}
+          >
+            <span className="block">{entry.title}</span>
+            <span className="text-xs -mt-8">{entry.date}</span>
+          </div>
+        </div>
       ))}
     </div>
   );
