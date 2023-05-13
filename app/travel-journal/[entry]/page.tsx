@@ -5,6 +5,14 @@ import { resolveFileNames } from "@/helpers/resolveFileNames";
 
 const gildaDisplay = Gilda_Display({ weight: "400", subsets: ["latin"] });
 
+// Generate static params at build time (workaround for export)
+// https://github.com/vercel/next.js/issues/48022#issuecomment-1542654383
+export async function generateStaticParams() {
+  return TRAVEL_JOURNAL_ENTRIES.map((entry) => {
+    entry: entry.key;
+  });
+}
+
 export default function TravelJournalEntry({ params }: any) {
   const fileNames = resolveFileNames(`${params.entry}`);
 
